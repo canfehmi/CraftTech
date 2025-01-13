@@ -23,10 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\CraftTech.BussinessLayer\CraftTech.BussinessLayer.csproj" />
     <ProjectReference Include="..\CraftTech.DataAccessLayer\CraftTech.DataAccessLayer.csproj" />
     <ProjectReference Include="..\CraftTech.EntityLayer\CraftTech.EntityLayer.csproj" />

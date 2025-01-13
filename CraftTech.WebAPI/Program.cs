@@ -1,5 +1,9 @@
 
+using CraftTech.BussinessLayer.Abstract;
+using CraftTech.BussinessLayer.Concrete;
+using CraftTech.DataAccessLayer.Abstract;
 using CraftTech.DataAccessLayer.Concrete;
+using CraftTech.DataAccessLayer.EntityFramework;
 
 namespace CraftTech.WebAPI
 {
@@ -17,6 +21,38 @@ namespace CraftTech.WebAPI
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<Context>();
 
+            builder.Services.AddScoped<IAboutUsDal, EFAboutUsDal>();
+            builder.Services.AddScoped<IAboutUsService, AboutUsManager>();
+
+            builder.Services.AddScoped<IBannerDal,EFBannerDal>();
+            builder.Services.AddScoped<IBannerService,BannerManager>();
+
+            builder.Services.AddScoped<IContactDal,EFContactDal>();
+            builder.Services.AddScoped<IContactService,ContactManager>();
+
+            builder.Services.AddScoped<IMessageDal,EFMessageDal>();
+            builder.Services.AddScoped<IMessageService,MessageManager>();
+
+            builder.Services.AddScoped<IProcessDal,EFProcessDal>();
+            builder.Services.AddScoped<IProcessService,ProcessManager>();
+
+            builder.Services.AddScoped<IProductDal,EFProductDal>();
+            builder.Services.AddScoped<IProductService,ProductManager>();
+
+            builder.Services.AddScoped<IServiceDal,EFServiceDal>();
+            builder.Services.AddScoped<IServiceService,ServiceManager>();
+
+            builder.Services.AddScoped<ISubscribeDal,EFSubscribeDal>();
+            builder.Services.AddScoped<ISubscribeService,SubscribeManager>();
+
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy("CraftTechCors", opt =>
+                {
+                    opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -28,6 +64,7 @@ namespace CraftTech.WebAPI
 
             app.UseHttpsRedirection();
 
+            app.UseCors("CraftTechCors");
             app.UseAuthorization();
 
 
