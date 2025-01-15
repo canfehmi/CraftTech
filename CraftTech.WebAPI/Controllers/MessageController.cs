@@ -24,6 +24,8 @@ namespace CraftTech.WebAPI.Controllers
         [HttpPost]
         public IActionResult AddMessage(Message Message)
         {
+            Message.IsRead=false;
+            Message.SendTime=DateTime.Now;
             _messageService.TInsert(Message);
             return Ok();
         }
