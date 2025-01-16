@@ -1,0 +1,36 @@
+﻿@model CraftTech.WebUI.Areas.Admin.Models.About.UpdateAboutDto
+@{
+    ViewData["Title"] = "UpdateAbout";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("UpdateAbout", "AboutUs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x => x.AboutUsID)
+        @Html.Label("Başlık:")
+        @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Title, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Açıklama:")
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Description, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Hakkımızda Görseli:")
+        <input type="file" name="file" class="form-control" accept="image/*" />
+        @if (Model.ImageURL != null)
+        {
+            <p>Mevcut Fotoğraf: <img src="@Model.ImageURL" alt="Fotoğraf" style="max-height: 100px;" /></p>
+        }
+        <br />
+        @Html.Label("Vizyon:")
+        @Html.TextAreaFor(x => x.Vission, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Vission, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Misyon:")
+        @Html.TextAreaFor(x => x.Mission, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Mission, "", new { @style = "color:red" })
+        <br />
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}

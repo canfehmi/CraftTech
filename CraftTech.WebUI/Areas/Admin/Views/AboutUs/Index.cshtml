@@ -1,0 +1,23 @@
+﻿@model List<CraftTech.WebUI.Areas.Admin.Models.About.ResultAboutDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Başlık 1</th>
+        <th>Başlık 2</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.AboutUsID</th>
+            <td>@item.Title</td>
+            <td>@item.Description</td>
+            <td><a href="/Admin/AboutUs/UpdateAbout/@item.AboutUsID" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
+        </tr>
+    }
+</table>

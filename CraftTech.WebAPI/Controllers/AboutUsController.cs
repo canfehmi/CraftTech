@@ -2,6 +2,7 @@
 using CraftTech.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace CraftTech.WebAPI.Controllers
 {

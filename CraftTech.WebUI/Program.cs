@@ -1,3 +1,6 @@
+using CraftTech.DataAccessLayer.Concrete;
+using CraftTech.EntityLayer.Concrete;
+
 namespace CraftTech.WebUI
 {
     public class Program
@@ -8,6 +11,10 @@ namespace CraftTech.WebUI
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<Context>();
+            builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
+            builder.Services.AddHttpClient();
+
 
             var app = builder.Build();
 
@@ -27,9 +34,14 @@ namespace CraftTech.WebUI
             app.UseAuthorization();
 
             app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+
+            app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+            
             app.Run();
         }
     }
