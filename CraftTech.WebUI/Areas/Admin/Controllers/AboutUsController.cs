@@ -18,13 +18,13 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
             env = webHostEnvironment;
         }
 
-        public async Task< IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
             var responseMessage = await client.GetAsync("https://localhost:7117/api/AboutUs");
-            if(responseMessage.IsSuccessStatusCode)
+            if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData= await responseMessage.Content.ReadAsStringAsync();
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsonData);
                 return View(values);
             }
@@ -37,8 +37,8 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
             var responseMessage = await client.GetAsync($"https://localhost:7117/api/AboutUs/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
-                var jsonData= await responseMessage.Content.ReadAsStringAsync();
-                var value=JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
+                var jsonData = await responseMessage.Content.ReadAsStringAsync();
+                var value = JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
                 return View(value);
             }
             return View();
@@ -47,8 +47,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAbout, IFormFile? file)
         {
             var client = _httpClientFactory.CreateClient();
-
-
+            var jsonData = JsonConvert.SerializeObject(updateAbout);
             if (file != null)
             {
                 var uploadsFolder = Path.Combine(env.WebRootPath, "images");
@@ -56,19 +55,17 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 var filePath = Path.Combine(uploadsFolder, fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    file.CopyToAsync(stream);
+                    file.CopyTo(stream);
                 }
                 updateAbout.ImageURL = "/images/" + fileName;
             }
-            var jsonData = JsonConvert.SerializeObject(updateAbout);
-            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync($"https://localhost:7117/api/AboutUs", content);
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    return RedirectToAction("Index");
-                }
             
-
+            StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PutAsync("https://localhost:7117/api/AboutUs/", content);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
             return View(updateAbout);
         }
 

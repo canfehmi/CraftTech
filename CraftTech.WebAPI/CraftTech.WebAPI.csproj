@@ -21,12 +21,17 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CraftTech.BussinessLayer\CraftTech.BussinessLayer.csproj" />
     <ProjectReference Include="..\CraftTech.DataAccessLayer\CraftTech.DataAccessLayer.csproj" />
     <ProjectReference Include="..\CraftTech.EntityLayer\CraftTech.EntityLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="images\" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,6 @@
 ﻿using CraftTech.BussinessLayer.Abstract;
 using CraftTech.EntityLayer.Concrete;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 
 namespace CraftTech.WebAPI.Controllers
 {
@@ -16,18 +14,28 @@ namespace CraftTech.WebAPI.Controllers
         {
             _aboutUsService = aboutUsService;
         }
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "images/" + fileName);
+            var stream = new FileStream(path, FileMode.Create);
+            await file.CopyToAsync(stream);
+            return Created("", file);
+        }
+
         [HttpGet]
         public IActionResult AboutList()
         {
             var values = _aboutUsService.TGetList();
             return Ok(values);
         }
-        [HttpPost]
-        public IActionResult AddAbout(AboutUs aboutUs)
-        {
-            _aboutUsService.TInsert(aboutUs);
-            return Ok();
-        }
+        //[HttpPost]
+        //public IActionResult AddAbout(AboutUs aboutUs)
+        //{
+        //    _aboutUsService.TInsert(aboutUs);
+        //    return Ok();
+        //}
         [HttpDelete("{id}")]
         public IActionResult DeleteAbout(int id)
         {

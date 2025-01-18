@@ -4,6 +4,7 @@ using CraftTech.BussinessLayer.Concrete;
 using CraftTech.DataAccessLayer.Abstract;
 using CraftTech.DataAccessLayer.Concrete;
 using CraftTech.DataAccessLayer.EntityFramework;
+using Swashbuckle.Swagger;
 
 namespace CraftTech.WebAPI
 {
@@ -18,7 +19,10 @@ namespace CraftTech.WebAPI
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); //This line
+            });
             builder.Services.AddDbContext<Context>();
 
             builder.Services.AddScoped<IAboutUsDal, EFAboutUsDal>();
@@ -59,7 +63,10 @@ namespace CraftTech.WebAPI
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("./v1/swagger.json", "CraftTech.WebAPI V1"); //originally "./swagger/v1/swagger.json"
+                });
             }
 
             app.UseHttpsRedirection();
