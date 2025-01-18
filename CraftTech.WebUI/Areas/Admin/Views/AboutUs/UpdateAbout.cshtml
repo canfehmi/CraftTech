@@ -17,7 +17,7 @@
         @Html.ValidationMessageFor(x => x.Description, "", new { @style = "color:red" })
         <br />
         @Html.Label("Hakkımızda Görseli:")
-        <input type="file" asp-for="ImageURL" class="form-control" accept="image/*" />
+        <input type="file" name="file" class="form-control" accept="image/*" />
         @if (Model.ImageURL != null)
         {
             <p>Mevcut Fotoğraf: <img src="@Model.ImageURL" alt="Fotoğraf" style="max-height: 100px;" /></p>

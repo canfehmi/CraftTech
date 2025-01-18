@@ -1,6 +1,7 @@
 ﻿using CraftTech.BussinessLayer.Abstract;
 using CraftTech.DataAccessLayer.Abstract;
 using CraftTech.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,11 @@ namespace CraftTech.BussinessLayer.Concrete
         public void TUpdate(Message entity)
         {
             _messageDal.Update(entity);
+        }
+
+        public void TUpdateWithFile(Message entity, IFormFile? file)
+        {
+            _messageDal.UpdateWithFile(entity, file);
         }
     }
 }

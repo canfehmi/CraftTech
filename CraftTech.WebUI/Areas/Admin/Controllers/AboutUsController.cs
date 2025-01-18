@@ -46,8 +46,6 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAbout, IFormFile? file)
         {
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(updateAbout);
             if (file != null)
             {
                 var uploadsFolder = Path.Combine(env.WebRootPath, "images");
@@ -56,12 +54,14 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     file.CopyTo(stream);
-                }
+                }   
                 updateAbout.ImageURL = "/images/" + fileName;
             }
-            
+
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(updateAbout);
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://localhost:7117/api/AboutUs/", content);
+            var responseMessage = await client.PutAsync("https://localhost:7117/api/AboutUs", content);
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

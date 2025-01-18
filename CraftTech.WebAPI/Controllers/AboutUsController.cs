@@ -14,15 +14,6 @@ namespace CraftTech.WebAPI.Controllers
         {
             _aboutUsService = aboutUsService;
         }
-        [HttpPost]
-        public async Task<IActionResult> Upload(IFormFile file)
-        {
-            var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "images/" + fileName);
-            var stream = new FileStream(path, FileMode.Create);
-            await file.CopyToAsync(stream);
-            return Created("", file);
-        }
 
         [HttpGet]
         public IActionResult AboutList()
@@ -30,12 +21,12 @@ namespace CraftTech.WebAPI.Controllers
             var values = _aboutUsService.TGetList();
             return Ok(values);
         }
-        //[HttpPost]
-        //public IActionResult AddAbout(AboutUs aboutUs)
-        //{
-        //    _aboutUsService.TInsert(aboutUs);
-        //    return Ok();
-        //}
+        [HttpPost]
+        public IActionResult AddAbout(AboutUs aboutUs)
+        {
+            _aboutUsService.TInsert(aboutUs);
+            return Ok();
+        }
         [HttpDelete("{id}")]
         public IActionResult DeleteAbout(int id)
         {
@@ -44,10 +35,11 @@ namespace CraftTech.WebAPI.Controllers
             return Ok();
         }
         [HttpPut]
-        public IActionResult UpdateAbout(AboutUs aboutUs)
+        public  IActionResult UpdateAbout( AboutUs aboutUs)
         {
             _aboutUsService.TUpdate(aboutUs);
-            return Ok();
+            return Ok(new { message = "About us updated successfully." });
+
         }
         [HttpGet("{id}")]
         public IActionResult GetAbout(int id)

@@ -1,4 +1,5 @@
 ﻿using CraftTech.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace CraftTech.BussinessLayer.Abstract
 {
     public interface IAboutUsService:IGenericService<AboutUs>
     {
+        void TUpdateWithFile(AboutUs entity, IFormFile? file);
     }
 }

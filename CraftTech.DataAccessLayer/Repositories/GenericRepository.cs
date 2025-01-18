@@ -1,5 +1,7 @@
 ﻿using CraftTech.DataAccessLayer.Abstract;
 using CraftTech.DataAccessLayer.Concrete;
+using CraftTech.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +42,12 @@ namespace CraftTech.DataAccessLayer.Repositories
         }
 
         public void Update(T entity)
+        {
+            _context.Update(entity);
+            _context.SaveChanges();
+        }
+
+        public void UpdateWithFile(T entity, IFormFile? file)
         {
             _context.Update(entity);
             _context.SaveChanges();

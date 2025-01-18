@@ -2,6 +2,7 @@
 using CraftTech.DataAccessLayer.Concrete;
 using CraftTech.DataAccessLayer.Repositories;
 using CraftTech.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace CraftTech.DataAccessLayer.EntityFramework
         public EFAboutUsDal(Context context) : base(context) 
         { 
         }
+
     }
 }

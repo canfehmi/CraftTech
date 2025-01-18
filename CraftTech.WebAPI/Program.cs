@@ -4,6 +4,8 @@ using CraftTech.BussinessLayer.Concrete;
 using CraftTech.DataAccessLayer.Abstract;
 using CraftTech.DataAccessLayer.Concrete;
 using CraftTech.DataAccessLayer.EntityFramework;
+using CraftTech.WebAPI.Filters;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.Swagger;
 
 namespace CraftTech.WebAPI
@@ -21,7 +23,8 @@ namespace CraftTech.WebAPI
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
-                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); //This line
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CraftTech API", Version = "v1" });
+                c.OperationFilter<SwaggerFileOperationFilter>();
             });
             builder.Services.AddDbContext<Context>();
 
@@ -58,7 +61,7 @@ namespace CraftTech.WebAPI
             });
 
             var app = builder.Build();
-
+            app.UseStaticFiles();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

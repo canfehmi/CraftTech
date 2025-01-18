@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CraftTech.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +15,6 @@ namespace CraftTech.BussinessLayer.Abstract
         void TUpdate(T entity);
         List<T> TGetList();
         T TGetById(int id);
+        void TUpdateWithFile(T entity, IFormFile? file);
     }
 }
