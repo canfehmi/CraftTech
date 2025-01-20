@@ -35,7 +35,7 @@ namespace CraftTech.WebAPI.Controllers
             return Ok();
         }
         [HttpPut]
-        public  IActionResult UpdateAbout( AboutUs aboutUs)
+        public  IActionResult UpdateAbout(AboutUs aboutUs)
         {
             _aboutUsService.TUpdate(aboutUs);
             return Ok(new { message = "About us updated successfully." });

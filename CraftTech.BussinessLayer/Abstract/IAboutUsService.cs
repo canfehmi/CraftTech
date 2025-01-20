@@ -10,6 +10,5 @@ namespace CraftTech.BussinessLayer.Abstract
 {
     public interface IAboutUsService:IGenericService<AboutUs>
     {
-        void TUpdateWithFile(AboutUs entity, IFormFile? file);
     }
 }

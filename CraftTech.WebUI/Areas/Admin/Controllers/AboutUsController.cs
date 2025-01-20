@@ -1,7 +1,7 @@
-﻿using CraftTech.WebUI.Areas.Admin.Models.About;
+﻿using CraftTech.WebUI.Areas.Admin.Data;
+using CraftTech.WebUI.Areas.Admin.Models.About;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace CraftTech.WebUI.Areas.Admin.Controllers
@@ -11,13 +11,12 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         public readonly IWebHostEnvironment env;
-
+        ContextClass c = new ContextClass();
         public AboutUsController(IHttpClientFactory httpClientFactory, IWebHostEnvironment webHostEnvironment)
         {
             _httpClientFactory = httpClientFactory;
             env = webHostEnvironment;
         }
-
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
@@ -38,14 +37,18 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
-                var value = JsonConvert.DeserializeObject<UpdateAboutDto>(jsonData);
+                var value = JsonConvert.DeserializeObject<ResultAboutDto>(jsonData);
                 return View(value);
             }
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateAbout(UpdateAboutDto updateAbout, IFormFile? file)
+        public async Task<IActionResult> UpdateAbout(ResultAboutDto updateAbout, IFormFile? file)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(updateAbout);
+            }
             if (file != null)
             {
                 var uploadsFolder = Path.Combine(env.WebRootPath, "images");
@@ -54,7 +57,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     file.CopyTo(stream);
-                }   
+                }
                 updateAbout.ImageURL = "/images/" + fileName;
             }
 
