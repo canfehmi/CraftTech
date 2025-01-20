@@ -1,4 +1,4 @@
-﻿using CraftTech.WebUI.Areas.Admin.Data;
+﻿
 using CraftTech.WebUI.Areas.Admin.Models.About;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,7 +11,6 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
     {
         private readonly IHttpClientFactory _httpClientFactory;
         public readonly IWebHostEnvironment env;
-        ContextClass c = new ContextClass();
         public AboutUsController(IHttpClientFactory httpClientFactory, IWebHostEnvironment webHostEnvironment)
         {
             _httpClientFactory = httpClientFactory;

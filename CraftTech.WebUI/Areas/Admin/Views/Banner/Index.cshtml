@@ -1,0 +1,30 @@
+﻿@model List<CraftTech.WebUI.Areas.Admin.Models.Banner.BannerResultDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+    int count = 1;
+}
+<br />
+<h1>Banner</h1>
+<br />
+<a href="/Admin/Banner/AddBanner/" class="btn btn-outline-info">Yeni Banner Ekle</a>
+<br />
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@count</th>
+            <td>@item.Title</td>
+            <td>@item.SubTitle</td>
+            <td><a href="/Admin/Banner/UpdateBanner/@item.BannerID" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
+        </tr>
+        count++;
+    }
+</table>

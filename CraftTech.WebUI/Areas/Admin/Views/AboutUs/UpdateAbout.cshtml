@@ -3,7 +3,12 @@
     ViewData["Title"] = "UpdateAbout";
     Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
 }
-
+<br />
+<h1>Hakkımızda Güncelleme Sayfası</h1>
+<br />
+<br />
+<a href="/Admin/AboutUs/Index/" class="btn btn-outline-info">Vazgeç</a>
+<br />
 @using (Html.BeginForm("UpdateAbout", "AboutUs", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="form-group">

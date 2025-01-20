@@ -1,0 +1,45 @@
+﻿@model CraftTech.WebUI.Areas.Admin.Models.Contact.ContactUpdateDto
+@{
+    ViewData["Title"] = "UpdateContact";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+}
+
+
+<br />
+<h1>İletişim Güncelleme Sayfası</h1>
+<br />
+<a href="/Admin/Contact/Index/" class="btn btn-outline-info">Vazgeç</a>
+<br />
+<br />
+
+@using (Html.BeginForm("UpdateContact", "Contact", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        @Html.HiddenFor(x => x.ContactID)
+        @Html.Label("Sayfa Başlığı:")
+        @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Title, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Adres:")
+        @Html.TextAreaFor(x => x.Adress, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Adress, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Mail:")
+        @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Email, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Telefon:")
+        @Html.TextBoxFor(x => x.Phone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Phone, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("İletişim Alanı Görseli:")
+        <input type="file" name="file" class="form-control" accept="image/*" />
+        @if (Model.ImageURL != null)
+        {
+            <p>Mevcut Fotoğraf: <img src="@Model.ImageURL" alt="Fotoğraf" style="max-height: 100px;" /></p>
+        }
+        @Html.HiddenFor(x => x.ImageURL)
+        <br />
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}

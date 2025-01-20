@@ -1,0 +1,31 @@
+﻿@model List<CraftTech.WebUI.Areas.Admin.Models.Contact.ContactResultDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+}
+
+<br />
+<h1>İletişim Bilgileri</h1>
+<br />
+<td><a href="/Admin/Contact/UpdateContact/1/" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
+<br />
+<br />
+@foreach (var item in Model)
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>Sayfa Başlığı:</th>
+            <th>Adres:</th>
+            <th>Email:</th>
+            <th>Telefon:</th>
+        </tr>
+
+        <tr>
+            <td>@item.Title</td>
+            <td>@item.Adress</td>
+            <td>@item.Email</td>
+            <td>@item.Phone</td>
+        </tr>
+
+    </table>
+}

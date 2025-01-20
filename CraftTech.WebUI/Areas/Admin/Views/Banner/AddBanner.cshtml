@@ -1,0 +1,31 @@
+﻿@model CraftTech.WebUI.Areas.Admin.Models.Banner.BannerCreateDto
+@{
+    ViewData["Title"] = "AddBanner";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+}
+
+<br />
+<h1>Banner Ekleme Sayfası</h1>
+<br />
+<a href="/Admin/Banner/Index/" class="btn btn-outline-info">Vazgeç</a>
+<br />
+<br />
+
+@using (Html.BeginForm("AddBanner", "Banner", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="form-group">
+        @Html.Label("Başlık:")
+        @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Title, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Açıklama:")
+        @Html.TextAreaFor(x => x.SubTitle, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.SubTitle, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Banner Görseli:")
+        <input type="file" name="file" class="form-control" accept="image/*" />
+        <br />
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}
