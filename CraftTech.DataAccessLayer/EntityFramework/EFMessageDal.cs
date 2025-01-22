@@ -15,5 +15,16 @@ namespace CraftTech.DataAccessLayer.EntityFramework
         public EFMessageDal(Context context) : base(context)
         {
         }
+
+        public void ReadMessage(int id)
+        {
+            var contex = new Context();
+            var value = contex.Messages.Find(id);
+            if (value != null)
+            {
+                value.IsRead = true;
+            }
+            contex.SaveChanges();   
+        }
     }
 }

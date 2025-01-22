@@ -1,0 +1,32 @@
+﻿@model CraftTech.WebUI.Areas.Admin.Models.Service.ServiceUpdateDto
+@{
+    ViewData["Title"] = "UpdateService";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+}
+<br />
+<h1>Hizmet Güncelleme Sayfası</h1>
+<br />
+<a href="/Admin/Service/Index/" class="btn btn-outline-info">Vazgeç</a>
+<br />
+<br />
+
+@using (Html.BeginForm("UpdateService", "Service", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <div class="form-group">
+        @Html.HiddenFor(x => x.ServiceID)
+        @Html.Label("Hizmet Adı:")
+        @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Title, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Hizmet Açıklaması:")
+        @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Description, "", new { @style = "color:red" })
+        <br />
+        @Html.Label("Hizmet Görseli:")
+        <input type="file" name="file" class="form-control" accept="image/*" />
+        @Html.HiddenFor(x => x.ImageURL)
+        <br />
+        <button class="btn btn-success">Kaydet</button>
+    </div>
+}

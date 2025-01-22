@@ -16,6 +16,7 @@
         <th>Başlık</th>
         <th>Açıklama</th>
         <th>Güncelle</th>
+        <th>Sil</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -24,6 +25,7 @@
             <td>@item.Title</td>
             <td>@item.SubTitle</td>
             <td><a href="/Admin/Banner/UpdateBanner/@item.BannerID" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
+            <td><a href="/Admin/Banner/DeleteBanner/@item.BannerID" class="btn mb-1 btn-rounded btn-outline-danger">Sil</a></td>
         </tr>
         count++;
     }

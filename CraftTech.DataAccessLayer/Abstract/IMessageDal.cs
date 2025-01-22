@@ -9,5 +9,6 @@ namespace CraftTech.DataAccessLayer.Abstract
 {
     public interface IMessageDal:IGenericDal<Message>
     {
+        void ReadMessage(int id);
     }
 }

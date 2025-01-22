@@ -1,0 +1,32 @@
+﻿@model List<CraftTech.WebUI.Areas.Admin.Models.Service.ServiceResultDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
+    int count = 1;
+}
+<br />
+<h1>Hizmetler</h1>
+<br />
+<a href="/Admin/Service/AddService/" class="btn btn-outline-info">Yeni Hizmet Ekle</a>
+<br />
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Başlık</th>
+        <th>Açıklama</th>
+        <th>Güncelle</th>
+        <th>Sil</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@count</th>
+            <td>@item.Title</td>
+            <td>@item.Description</td>
+            <td><a href="/Admin/Service/UpdateService/@item.ServiceID" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
+            <td><a href="/Admin/Service/DeleteService/@item.ServiceID" class="btn mb-1 btn-rounded btn-outline-danger">Sil</a></td>
+        </tr>
+        count++;
+    }
+</table>

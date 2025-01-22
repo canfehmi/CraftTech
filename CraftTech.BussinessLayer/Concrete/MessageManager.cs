@@ -39,6 +39,11 @@ namespace CraftTech.BussinessLayer.Concrete
             _messageDal.Insert(entity);
         }
 
+        public void TReadMessage(int id)
+        {
+            _messageDal.ReadMessage(id);
+        }
+
         public void TUpdate(Message entity)
         {
             _messageDal.Update(entity);

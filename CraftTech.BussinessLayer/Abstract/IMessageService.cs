@@ -9,5 +9,6 @@ namespace CraftTech.BussinessLayer.Abstract
 {
     public interface IMessageService:IGenericService<Message>
     {
+        void TReadMessage(int id);
     }
 }

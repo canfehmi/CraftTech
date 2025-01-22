@@ -102,5 +102,15 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
             }
             return View(bannerCreateDto);
         }
+        public async Task<IActionResult> DeleteBanner(int id)
+        {
+            var client=_httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync($"https://localhost:7117/api/Banner/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
 }
