@@ -45,11 +45,8 @@ namespace CraftTech.WebAPI.Controllers
         }
         [HttpGet("{id}")]
         public IActionResult GetMessage(int id)
-        {
-            Context context = new Context();
+        {         
             var value = _messageService.TGetById(id);
-            value.IsRead=true;
-            context.SaveChanges();
             return Ok(value);
         }
     }

@@ -20,7 +20,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task< IActionResult> Index()
         {
             var client= _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:7117/api/Service");
+            var response = await client.GetAsync("https://craftechmuhendislik.com/api/Service");
             if(response.IsSuccessStatusCode)
             {
                 var jsonData= await response.Content.ReadAsStringAsync();
@@ -55,7 +55,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
             var client=_httpClientFactory.CreateClient();
             var jsonData=JsonConvert.SerializeObject(serviceCreateDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8,"application/json");
-            var response = await client.PostAsync("https://localhost:7117/api/Service", content);
+            var response = await client.PostAsync("https://craftechmuhendislik.com/api/Service", content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -66,7 +66,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateService(int id)
         {
             var client= _httpClientFactory.CreateClient();
-            var response = await client.GetAsync($"https://localhost:7117/api/Service/{id}");
+            var response = await client.GetAsync($"https://craftechmuhendislik.com/api/Service/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData= await response.Content.ReadAsStringAsync();
@@ -96,7 +96,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
             var client= _httpClientFactory.CreateClient();
             var jsonData=JsonConvert.SerializeObject(serviceUpdateDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8,"application/json");
-            var response = await client.PutAsync("https://localhost:7117/api/Service", content);
+            var response = await client.PutAsync("https://craftechmuhendislik.com/api/Service", content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -106,7 +106,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteService(int id)
         {
             var client=_httpClientFactory.CreateClient();
-            var response = await client.DeleteAsync($"https://localhost:7117/api/Service/{id}");
+            var response = await client.DeleteAsync($"https://craftechmuhendislik.com/api/Service/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

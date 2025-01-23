@@ -1,16 +1,15 @@
 ﻿@model List<CraftTech.WebUI.Areas.Admin.Models.Message.MessageResultDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "NotRead";
     Layout = "~/Areas/Admin/Views/Layout/_AdminLayout.cshtml";
     int count = 1;
-    string IsRead = "";
-    string btnClass = "";
 }
+
 
 <br />
 <h1>Mesajlar</h1>
 <br />
-<a href="/Admin/Message/NotRead/" class="btn btn-outline-info">Okunmamış Mesajları Gör</a>
+<a href="/Admin/Message/Index/" class="btn btn-outline-info">Tüm Mesajları Gör</a>
 <br />
 <br />
 <table class="table table-bordered">
@@ -18,26 +17,17 @@
         <th>#</th>
         <th>Gönderen Adı Soyadı</th>
         <th>Gönderen Mail</th>
-        <th>Okundu Mu?</th>
+        <th>Gönderen Telefon</th>
         <th>Görüntüle</th>
         <th>Sil</th>
     </tr>
     @foreach (var item in Model)
     {
-        @if(item.IsRead)
-        {
-            IsRead = "Okundu";
-            btnClass = "btn btn-success";
-        }else
-        {
-            IsRead = "Okunmadı";
-            btnClass = "btn btn-warning";
-        }
         <tr>
             <th>@count</th>
             <td>@item.NameSurname</td>
             <td>@item.Email</td>
-            <td><span class="@btnClass">@IsRead</span></td>
+            <td>@item.Phone</td>
             <td><a href="/Admin/Message/MessageDetail/@item.MessageID/" class="btn mb-1 btn-rounded btn-outline-success">Mesajı Gör</a></td>
             <td><a href="/Admin/Message/DeleteMessage/@item.MessageID" class="btn mb-1 btn-rounded btn-outline-danger" onclick="return confirm('Bu mesajı silmek istediğinizden emin misiniz?')">Sil</a></td>
         </tr>

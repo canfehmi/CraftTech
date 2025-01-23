@@ -25,7 +25,7 @@
             <td>@item.Title</td>
             <td>@item.Description</td>
             <td><a href="/Admin/Service/UpdateService/@item.ServiceID" class="btn mb-1 btn-rounded btn-outline-success">Güncelle</a></td>
-            <td><a href="/Admin/Service/DeleteService/@item.ServiceID" class="btn mb-1 btn-rounded btn-outline-danger">Sil</a></td>
+            <td><a href="/Admin/Service/DeleteService/@item.ServiceID" class="btn mb-1 btn-rounded btn-outline-danger" onclick="return confirm('Bu mesajı silmek istediğinizden emin misiniz?')">Sil</a></td>
         </tr>
         count++;
     }
