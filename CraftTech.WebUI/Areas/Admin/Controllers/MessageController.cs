@@ -1,11 +1,13 @@
 ﻿using CraftTech.DataAccessLayer.Concrete;
 using CraftTech.WebUI.Areas.Admin.Models.Message;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace CraftTech.WebUI.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class MessageController : Controller
     {
@@ -19,7 +21,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:7117/api/Message");
+            var response = await client.GetAsync("https://api.craftechmuhendislik.com/api/Message");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -43,7 +45,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 context.SaveChanges();
             }
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync($"https://localhost:7117/api/Message/{id}");
+            var response = await client.GetAsync($"https://api.craftechmuhendislik.com/api/Message/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -55,7 +57,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> NotRead()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:7117/api/Message");
+            var response = await client.GetAsync("https://api.craftechmuhendislik.com/api/Message");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -68,7 +70,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteMessage(int id)
         {
             var client= _httpClientFactory.CreateClient();
-            var response = await client.DeleteAsync($"https://localhost:7117/api/Message/{id}");
+            var response = await client.DeleteAsync($"https://api.craftechmuhendislik.com/api/Message/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

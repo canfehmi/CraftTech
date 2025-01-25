@@ -1,10 +1,12 @@
 ﻿using CraftTech.WebUI.Areas.Admin.Models.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace CraftTech.WebUI.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class ServiceController : Controller
     {
@@ -20,7 +22,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task< IActionResult> Index()
         {
             var client= _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://craftechmuhendislik.com/api/Service");
+            var response = await client.GetAsync("https://api.craftechmuhendislik.com/api/Service");
             if(response.IsSuccessStatusCode)
             {
                 var jsonData= await response.Content.ReadAsStringAsync();
@@ -50,12 +52,12 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 {
                     file.CopyTo(stream);
                 }
-                serviceCreateDto.ImageURL = "/images/" + fileName;
+                serviceCreateDto.ImageURL = "https://admin.craftechmuhendislik.com/images/" + fileName;
             }
             var client=_httpClientFactory.CreateClient();
             var jsonData=JsonConvert.SerializeObject(serviceCreateDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8,"application/json");
-            var response = await client.PostAsync("https://craftechmuhendislik.com/api/Service", content);
+            var response = await client.PostAsync("https://api.craftechmuhendislik.com/api/Service", content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -66,7 +68,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateService(int id)
         {
             var client= _httpClientFactory.CreateClient();
-            var response = await client.GetAsync($"https://craftechmuhendislik.com/api/Service/{id}");
+            var response = await client.GetAsync($"https://api.craftechmuhendislik.com/api/Service/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData= await response.Content.ReadAsStringAsync();
@@ -91,12 +93,12 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 {
                     file.CopyTo(stream);
                 }
-                serviceUpdateDto.ImageURL = "/images/" + fileName;
+                serviceUpdateDto.ImageURL = "https://admin.craftechmuhendislik.com/images/" + fileName;
             }
             var client= _httpClientFactory.CreateClient();
             var jsonData=JsonConvert.SerializeObject(serviceUpdateDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8,"application/json");
-            var response = await client.PutAsync("https://craftechmuhendislik.com/api/Service", content);
+            var response = await client.PutAsync("https://api.craftechmuhendislik.com/api/Service", content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -106,7 +108,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteService(int id)
         {
             var client=_httpClientFactory.CreateClient();
-            var response = await client.DeleteAsync($"https://craftechmuhendislik.com/api/Service/{id}");
+            var response = await client.DeleteAsync($"https://api.craftechmuhendislik.com/api/Service/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

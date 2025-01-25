@@ -1,10 +1,12 @@
 ﻿using CraftTech.WebUI.Areas.Admin.Models.Banner;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace CraftTech.WebUI.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class BannerController : Controller
     {
@@ -19,7 +21,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task< IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://craftechmuhendislik.com/api/Banner");
+            var responseMessage = await client.GetAsync("https://api.craftechmuhendislik.com/api/Banner");
             if(responseMessage.IsSuccessStatusCode)
             {
                 var jsonData=await responseMessage.Content.ReadAsStringAsync();
@@ -32,7 +34,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateBanner(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://craftechmuhendislik.com/api/Banner/{id}");
+            var responseMessage = await client.GetAsync($"https://api.craftechmuhendislik.com/api/Banner/{id}");
             if(responseMessage.IsSuccessStatusCode)
             {
                 var jsonData= await responseMessage.Content.ReadAsStringAsync();
@@ -57,12 +59,12 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 {
                     file.CopyTo(stream);
                 }
-                bannerUpdateDto.ImageUrl = "/images/" + fileName;
+                bannerUpdateDto.ImageUrl = "https://admin.craftechmuhendislik.com/images/" + fileName;
             }
             var client = _httpClientFactory.CreateClient();
             var jsonData= JsonConvert.SerializeObject(bannerUpdateDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-            var responseMessage = await client.PutAsync("https://craftechmuhendislik.com/api/Banner", content);
+            var responseMessage = await client.PutAsync("https://api.craftechmuhendislik.com/api/Banner", content);
             if(responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -90,12 +92,12 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 {
                     file.CopyTo(stream);
                 }
-                bannerCreateDto.ImageUrl = "/images/" + fileName;
+                bannerCreateDto.ImageUrl = "https://admin.craftechmuhendislik.com/images/" + fileName;
             }
             var client= _httpClientFactory.CreateClient();
             var jsonData=JsonConvert.SerializeObject(bannerCreateDto);
             StringContent content=new StringContent(jsonData,Encoding.UTF8, "application/json");
-            var responseMessage = await client.PostAsync("https://craftechmuhendislik.com/api/Banner", content);
+            var responseMessage = await client.PostAsync("https://api.craftechmuhendislik.com/api/Banner", content);
             if(responseMessage.IsSuccessStatusCode) 
             {
                 return RedirectToAction("Index"); 
@@ -105,7 +107,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteBanner(int id)
         {
             var client=_httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://craftechmuhendislik.com/api/Banner/{id}");
+            var responseMessage = await client.DeleteAsync($"https://api.craftechmuhendislik.com/api/Banner/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

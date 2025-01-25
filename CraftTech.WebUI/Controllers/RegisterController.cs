@@ -23,7 +23,7 @@ namespace CraftTech.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Index", "Login");
+                return View("Index", "AboutUs");
             }
             var appUser = new AppUser()
             {

@@ -13,7 +13,7 @@ namespace CraftTech.DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-E7MGKIP;initial catalog=CraftTechDb;integrated security=true;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=78.135.111.104;initial catalog=craftechdb;user Id=craftechdb;password=Craftech123.;TrustServerCertificate=True;");
         }
         public DbSet<AboutUs> AboutUs { get; set; }
         public DbSet<Banner> Banners { get; set; }
