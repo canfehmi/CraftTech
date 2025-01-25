@@ -19,7 +19,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://craftechmuhendislik.com/api/Message");
+            var response = await client.GetAsync("https://localhost:7117/api/Message");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -43,7 +43,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 context.SaveChanges();
             }
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync($"https://craftechmuhendislik.com/api/Message/{id}");
+            var response = await client.GetAsync($"https://localhost:7117/api/Message/{id}");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -55,7 +55,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> NotRead()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://craftechmuhendislik.com/api/Message");
+            var response = await client.GetAsync("https://localhost:7117/api/Message");
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
@@ -68,7 +68,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteMessage(int id)
         {
             var client= _httpClientFactory.CreateClient();
-            var response = await client.DeleteAsync($"https://craftechmuhendislik.com/api/Message/{id}");
+            var response = await client.DeleteAsync($"https://localhost:7117/api/Message/{id}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

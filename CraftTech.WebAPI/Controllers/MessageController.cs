@@ -1,6 +1,7 @@
 ﻿using CraftTech.BussinessLayer.Abstract;
 using CraftTech.DataAccessLayer.Concrete;
 using CraftTech.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

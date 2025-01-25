@@ -35,7 +35,7 @@ namespace CraftTech.WebUI
 
             app.MapControllerRoute(
     name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Message}/{action=Index}/{id?}");
 
 
             app.MapControllerRoute(

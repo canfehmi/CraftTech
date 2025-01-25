@@ -1,5 +1,6 @@
 ﻿using CraftTech.BussinessLayer.Abstract;
 using CraftTech.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CraftTech.WebAPI.Controllers
@@ -14,7 +15,6 @@ namespace CraftTech.WebAPI.Controllers
         {
             _aboutUsService = aboutUsService;
         }
-
         [HttpGet]
         public IActionResult AboutList()
         {

@@ -5,8 +5,11 @@ using CraftTech.DataAccessLayer.Abstract;
 using CraftTech.DataAccessLayer.Concrete;
 using CraftTech.DataAccessLayer.EntityFramework;
 using CraftTech.WebAPI.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.Swagger;
+using System.Text;
 
 namespace CraftTech.WebAPI
 {
@@ -25,6 +28,19 @@ namespace CraftTech.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CraftTech API", Version = "v1" });
                 c.OperationFilter<SwaggerFileOperationFilter>();
+            });
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            {
+                opt.RequireHttpsMetadata = true;
+                opt.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = "https://localhost",
+                    ValidAudience = "https://localhost",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("uzun-ve-guclu-bir-anahtar-olduburasi")),
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
             });
             builder.Services.AddDbContext<Context>();
 
@@ -59,7 +75,7 @@ namespace CraftTech.WebAPI
                     opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
-
+            //WithOrigins("https://craftechmuhendislik.com", "https://admin.craftechmuhendislik.com")
             var app = builder.Build();
             app.UseStaticFiles();
             // Configure the HTTP request pipeline.

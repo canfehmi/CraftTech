@@ -19,7 +19,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://craftechmuhendislik.com/api/AboutUs");
+            var responseMessage = await client.GetAsync("https://localhost:7117/api/AboutUs");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
