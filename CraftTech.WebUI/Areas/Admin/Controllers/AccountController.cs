@@ -21,19 +21,31 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> ChangePassword(ChangePasswordDto model)
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto model, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
+            // Kullanıcı doğrulama
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Login");
             }
 
+            // Alanların boş olup olmadığını kontrol et
+            if (string.IsNullOrEmpty(model.CurrentPassword) ||
+                string.IsNullOrEmpty(model.NewPassword) ||
+                string.IsNullOrEmpty(model.ConfirmNewPassword))
+            {
+                ModelState.AddModelError(string.Empty, "Lütfen tüm alanları doldurunuz.");
+                return View(model);
+            }
+
+            // Şifre değiştirme işlemi
             var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
             if (result.Succeeded)
             {
@@ -41,6 +53,7 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Message", new {area="Admin"});
             }
 
+            // Hataları kullanıcıya göster
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
@@ -49,5 +62,5 @@ namespace CraftTech.WebUI.Areas.Admin.Controllers
             return View(model);
         }
     }
-    
+
 }

@@ -5,9 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 @await Html.PartialAsync("/Areas/Admin/Views/Layout/HeadPartial.cshtml")
-
 <body>
     @if (TempData["SuccessMessage"] != null)
     {
@@ -21,7 +19,7 @@
         @await Html.PartialAsync("/Areas/Admin/Views/Layout/HeaderPartial.cshtml")
         @await Html.PartialAsync("/Areas/Admin/Views/Layout/SidebarPartial.cshtml")
         <div class="content-body">
-            <div class="container-fluid">
+            <div class="container-fluid mt-0">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -33,7 +31,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     @await Html.PartialAsync("/Areas/Admin/Views/Layout/FooterPartial.cshtml")
     @await Html.PartialAsync("/Areas/Admin/Views/Layout/ScriptPartial.cshtml")
