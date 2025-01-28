@@ -59,7 +59,8 @@ namespace CraftTech.WebAPI
             {
                 opt.AddPolicy("CraftTechCors", opt =>
                 {
-                    opt.WithOrigins("https://craftechmuhendislik.com", "https://admin.craftechmuhendislik.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                    opt.WithOrigins("https://craftechmuhendislik.com", "https://admin.craftechmuhendislik.com", 
+                        "https://api.craftechmuhendislik.com").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                 });
             });
             var app = builder.Build();
