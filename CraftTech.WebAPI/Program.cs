@@ -59,7 +59,7 @@ namespace CraftTech.WebAPI
             {
                 opt.AddPolicy("CraftTechCors", opt =>
                 {
-                    opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                    opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
             var app = builder.Build();

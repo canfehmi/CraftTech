@@ -18,10 +18,14 @@ namespace CraftTech.WebAPI.Controllers
             _messageService = messageService;
         }
         [HttpGet]
-        public IActionResult MessageList()
+        public IActionResult MessageList(string token)
         {
-            var values = _messageService.TGetList();
-            return Ok(values);
+            if(token == "string")
+            {
+                var values = _messageService.TGetList();
+                return Ok(values);
+            }
+            return BadRequest();
         }
         [HttpPost]
         public IActionResult AddMessage(Message Message)

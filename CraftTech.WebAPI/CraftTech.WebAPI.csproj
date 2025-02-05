@@ -32,8 +32,4 @@
     <ProjectReference Include="..\CraftTech.EntityLayer\CraftTech.EntityLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="images\" />
-  </ItemGroup>
-
 </Project>
